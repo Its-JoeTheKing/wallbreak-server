@@ -51,6 +51,6 @@ app.post("/search",async(req,res)=>{
 
 
 
-app.listen(8080,()=>{
+app.listen(process.env.PORT||8080,()=>{
     console.log("server Running on 8080")
 })
