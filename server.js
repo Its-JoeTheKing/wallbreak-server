@@ -13,6 +13,7 @@ mongoose.connect(uri,{
         console.log("Connected Database")
     }).catch((err)=>{console.log(err)})
 var WallPapers = new mongoose.Schema({
+    name: String,
     img: String,
     desc: String,
     likes: Number
@@ -27,9 +28,11 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.post("/uploadImg",(req,res)=>{
     var img = req.body.img;
     var tags = req.body.tags;
+    var name = req.body.name;
     var resp = new WallPaper({
+        name: name,
         img: img,
-        desc: tags,
+        desc: tags,    
         likes: 0
     })
     resp.save(()=>{
