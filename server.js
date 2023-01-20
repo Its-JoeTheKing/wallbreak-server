@@ -41,14 +41,11 @@ app.get("/imgs",async(req,res)=>{
     var resp = await WallPaper.find({}).lean()
     res.send(resp)
 })
-app.post("/search",async(req,res)=>{
-    tags = req.body.tags;
-    var resp = await WallPaper.find({desc:{$regex: ".*"+tags+".*"}});
+app.get("/search",async(req,res)=>{
+    var tags = req.query.tags;
+    var resp = await WallPaper.find({desc: {$regex: ".*"+tags+".*"}});
     res.send(resp)
 })
-
-
-
 
 
 app.listen(process.env.PORT||8080,()=>{
