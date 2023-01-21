@@ -25,10 +25,10 @@ app.use(cors({
 }))
 app.use(bodyParser.urlencoded({extended: false}))
 
-app.get("/uploadImg",(req,res)=>{
-    var img = req.query.img;
-    var tags = req.query.tags;
-    var name = req.query.name;
+app.post("/uploadImg",(req,res)=>{
+    var img = req.body.img;
+    var tags = req.body.tags;
+    var name = req.body.name;
     var resp = new WallPaper({
         name: name,
         img: img,
