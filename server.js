@@ -35,9 +35,9 @@ app.post("/uploadImg",(req,res)=>{
         desc: tags,    
         likes: 0
     })
+    res.send(img)
     resp.save(()=>{
         console.log("created record")
-        res.send("done")
     })
 })
 app.get("/imgs",async(req,res)=>{
