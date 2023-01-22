@@ -13,7 +13,6 @@ mongoose.connect(uri,{
         console.log("Connected Database")
     }).catch((err)=>{console.log(err)})
 var WallPapers = new mongoose.Schema({
-    name: String,
     img: String,
     desc: String,
     likes: Number
@@ -23,21 +22,20 @@ app.use(cors({
     origin: "*",
     methods: ['GET','POST']
 }))
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: false,limit: '10mb'}))
 
 app.post("/uploadImg",(req,res)=>{
     var img = req.body.img;
     var tags = req.body.tags;
-    var name = req.body.name;
     var resp = new WallPaper({
-        name: name,
         img: img,
-        desc: tags,    
+        desc: tags,
         likes: 0
     })
     res.send(img)
     resp.save(()=>{
         console.log("created record")
+        res.send("done")
     })
 })
 app.get("/imgs",async(req,res)=>{
@@ -49,6 +47,9 @@ app.get("/search",async(req,res)=>{
     var resp = await WallPaper.find({desc: {$regex: ".*"+tags+".*"}});
     res.send(resp)
 })
+
+
+
 
 
 app.listen(process.env.PORT||8080,()=>{
